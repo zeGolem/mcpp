@@ -22,6 +22,7 @@ class minecraft_client
 	} m_state;
 
 	void send_status();
+	void send_pong(const long payload);
 
   public:
 	minecraft_client(network::tcp_connection *);

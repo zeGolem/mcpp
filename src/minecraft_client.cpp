@@ -36,6 +36,15 @@ void minecraft_client::send_status()
 	m_packet_serializer.serialize_and_send(status_response);
 }
 
+void minecraft_client::send_pong(const long payload)
+{
+	auto ping_response = protocol::packets::clientboud_pong{
+	    .payload = payload,
+	};
+	protocol::packets::build_base(ping_response);
+	m_packet_serializer.serialize_and_send(ping_response);
+}
+
 void minecraft_client::run_loop()
 {
 	bool should_continue = true;
@@ -71,7 +80,14 @@ void minecraft_client::run_loop()
 				send_status();
 			} else if (next_packet.packet_id == 0x01) {
 				// We are here: https://wiki.vg/Server_List_Ping#Ping
-				throw utils::exception("unimplemented!");
+				auto ping_request =
+				    m_packet_parser.parse_next<protocol::packets::serverboud_ping>(
+				        next_packet);
+
+				std::cout << "Got ping request, replying, payload=" << ping_request.payload
+				          << std::endl;
+				send_pong(ping_request.payload);
+				should_continue = false;
 			} else
 				throw utils::exception("Invalid packet ID for Status state.");
 		} break;
