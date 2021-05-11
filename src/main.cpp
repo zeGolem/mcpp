@@ -10,8 +10,6 @@ int main(int argc, char const *argv[])
 {
 	std::cout << "Hello, world" << std::endl;
 
-	std::vector<std::thread> client_threads;
-
 	try {
 		network::tcp_server serv;
 		serv.start();
