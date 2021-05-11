@@ -47,6 +47,15 @@ const unsigned short packet_parser::read_ushort()
 	return target;
 }
 
+const long int packet_parser::read_long()
+{
+	long target = 0;
+	auto raw = m_connection->read(8);
+	for (std::size_t i = 0; i < raw.size(); ++i)
+		target |= raw[i] << 8 * i;
+	return target;
+}
+
 packets::packet packet_parser::parse_base(bool store_raw_data)
 {
 	auto p = packets::packet{

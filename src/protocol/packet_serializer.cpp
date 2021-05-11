@@ -5,6 +5,7 @@
 #include "network/tcp_connection.h"
 #include "packets/packet.h"
 #include "utils/exception.h"
+#include "utils/types.h"
 
 using namespace mcpp;
 using namespace protocol;
@@ -28,6 +29,14 @@ void packet_serializer::write_string(type::string str, unsigned int max_len)
 	if (data.length() > max_len) throw utils::exception("String too long");
 	write_varint(data.length());
 	m_connection->write(std::vector<unsigned char>(data.begin(), data.end()));
+}
+
+void packet_serializer::write_long(long val)
+{
+	for (std::size_t i = 0; i < 8; ++i) { // For each byte in the long
+		utils::byte current = val >> 8 * i;
+		m_connection->write_byte(current);
+	}
 }
 
 packet_serializer::packet_serializer(network::tcp_connection *connection) : m_connection(connection)

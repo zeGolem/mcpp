@@ -15,6 +15,7 @@ class packet_parser
 	const type::varint read_varint();
 	const type::string read_string(unsigned int max_length);
 	const unsigned short read_ushort();
+	const long int read_long();
 
   public:
 	packet_parser(network::tcp_connection *connection);
