@@ -60,6 +60,7 @@ void minecraft_client::run_loop()
 		          << std::endl;
 
 		switch (m_state) {
+
 		case state::HANDSHAKE: {
 			if (next_packet.packet_id != 0x00)
 				throw utils::exception("Invalid packet ID for handshake");
@@ -76,6 +77,7 @@ void minecraft_client::run_loop()
 			else
 				throw utils::exception("Invalid state after handshake");
 		} break;
+
 		case state::STATUS: {
 			if (next_packet.packet_id == 0x00) {
 				// We are here : https://wiki.vg/Server_List_Ping#Request
@@ -96,6 +98,7 @@ void minecraft_client::run_loop()
 			} else
 				throw utils::exception("Invalid packet ID for Status state.");
 		} break;
+
 		default:
 			utils::exception("Unimplemented state!!");
 		}
