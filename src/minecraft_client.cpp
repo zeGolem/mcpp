@@ -81,8 +81,7 @@ void minecraft_client::run_loop()
 			} else if (next_packet.packet_id == 0x01) {
 				// We are here: https://wiki.vg/Server_List_Ping#Ping
 				auto ping_request =
-				    m_packet_parser.parse_next<protocol::packets::serverboud_ping>(
-				        next_packet);
+				    m_packet_parser.parse_next<protocol::packets::serverboud_ping>(next_packet);
 
 				std::cout << "Got ping request, replying, payload=" << ping_request.payload
 				          << std::endl;
