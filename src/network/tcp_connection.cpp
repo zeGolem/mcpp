@@ -15,10 +15,11 @@ tcp_connection::tcp_connection(int fd, sockaddr_in client_addr)
 
 void tcp_connection::close()
 {
-	if (!::close(m_socket_fd)) {
-		throw utils::exception("Failed to close socket");
+	if (::close(m_socket_fd) != 0) {
+		perror("close");
+		std::cerr << "Failed to close socket. Assuming it's already closed" << std::endl;
 	} else
-		std::cout << "closed a socket" << std::endl;
+		std::cout << "Closed a socket" << std::endl;
 }
 
 // TODO: Doesn't work
