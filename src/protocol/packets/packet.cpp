@@ -9,3 +9,7 @@ template <> void packets::build_base(clientboud_status_response &packet) {
 	packet.length = packet.packet_id.size() + packet.json_response.size();
 }
 
+template <> void packets::build_base(clientboud_pong &packet) {
+	packet.packet_id = 0x01;
+	packet.length = packet.packet_id.size() + sizeof(packet.payload);
+}

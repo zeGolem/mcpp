@@ -54,3 +54,9 @@ template <> void packet_serializer::serialize_and_send(packets::clientboud_statu
 	serialize_and_send_base(packet);
 	write_string(packet.json_response, 32767);
 }
+
+template <> void packet_serializer::serialize_and_send(packets::clientboud_pong packet)
+{
+	serialize_and_send_base(packet);
+	write_long(packet.payload);
+}

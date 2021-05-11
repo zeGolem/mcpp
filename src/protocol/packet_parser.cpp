@@ -97,3 +97,17 @@ template <> packets::serverboud_status_request packet_parser::parse_next(packets
 
 	return p;
 }
+
+template <> packets::serverboud_ping packet_parser::parse_next(packets::packet base)
+{
+	auto p = packets::serverboud_ping{};
+	p.length = base.length;
+	p.packet_id = base.packet_id;
+
+	if (p.packet_id != 0x01)
+		throw utils::exception("Trying to parse serverbound ping request, but packet ID isn't 1");
+
+	p.payload = read_long();
+
+	return p;
+}

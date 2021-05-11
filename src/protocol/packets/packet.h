@@ -33,10 +33,11 @@ struct clientboud_status_response : packet {
 	type::string json_response;
 };
 
-struct serverboud_ping_request : packet {
+struct serverboud_ping : packet {
+	long payload;
 };
-struct clientboud_ping_response : packet {
-	type::string json_response;
+struct clientboud_pong : packet {
+	long payload;
 };
 
 } // namespace packets
