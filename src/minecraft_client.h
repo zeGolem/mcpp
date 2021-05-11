@@ -14,6 +14,8 @@ class minecraft_client
 	protocol::packet_parser m_packet_parser;
 	protocol::packet_serializer m_packet_serializer;
 
+	std::thread *m_loop_thread;
+
 	enum state
 	{
 		HANDSHAKE,
@@ -28,6 +30,7 @@ class minecraft_client
 	minecraft_client(network::tcp_connection *);
 	~minecraft_client();
 
+	void start_loop_thread();
 	void run_loop();
 
 	const state state() const { return m_state; }

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <ostream>
 #include <sstream>
+#include <thread>
 
 #include "protocol/packets/packet.h"
 #include "utils/exception.h"
@@ -43,6 +44,11 @@ void minecraft_client::send_pong(const long payload)
 	};
 	protocol::packets::build_base(ping_response);
 	m_packet_serializer.serialize_and_send(ping_response);
+}
+
+void minecraft_client::start_loop_thread()
+{
+	m_loop_thread = new std::thread([this] { this->run_loop(); });
 }
 
 void minecraft_client::run_loop()
