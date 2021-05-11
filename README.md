@@ -46,3 +46,8 @@ cd build
 gdb -ex "cd build" -ex run build/mcpp.dbg # This will setup the directory correctly and run the binary right after starting GDB.
 ```
 
+# TODO
+
+* Better Makefile (add support for partial builds, and use multiple jobs)
+* Full protocol support
+* Many code cleanup stuff...
