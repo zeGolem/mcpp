@@ -29,7 +29,6 @@ class minecraft_client
 	~minecraft_client();
 
 	void run_loop();
-	void handle();
 
 	const state state() const { return m_state; }
 };
