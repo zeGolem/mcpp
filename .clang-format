@@ -1,0 +1,13 @@
+BasedOnStyle: Microsoft
+
+UseTab: ForIndentation
+TabWidth: 4
+BreakBeforeBraces: Linux
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: WithoutElse
+
+AlignAfterOpenBracket: Align
+BinPackArguments: false
+BinPackParameters: false
+
+ColumnLimit: 100
