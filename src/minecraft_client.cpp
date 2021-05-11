@@ -38,7 +38,8 @@ void minecraft_client::send_status()
 
 void minecraft_client::run_loop()
 {
-	while (true) {
+	bool should_continue = true;
+	while (should_continue) {
 		protocol::packets::packet next_packet = m_packet_parser.parse_base();
 		std::cout << "Got a packet: id=" << next_packet.packet_id << ",len=" << next_packet.length
 		          << std::endl;
