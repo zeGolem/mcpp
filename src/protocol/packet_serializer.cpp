@@ -34,12 +34,14 @@ packet_serializer::packet_serializer(network::tcp_connection *connection) : m_co
 {
 }
 
-void packet_serializer::serialize_and_send_base(packets::packet base) {
+void packet_serializer::serialize_and_send_base(packets::packet base)
+{
 	write_varint(base.length);
 	write_varint(base.packet_id);
 }
 
-template <> void packet_serializer::serialize_and_send(packets::clientboud_status_response packet) {
+template <> void packet_serializer::serialize_and_send(packets::clientboud_status_response packet)
+{
 	serialize_and_send_base(packet);
 	write_string(packet.json_response, 32767);
 }
