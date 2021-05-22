@@ -46,6 +46,16 @@ void minecraft_client::send_pong(const long payload)
 	m_packet_serializer.serialize_and_send(ping_response);
 }
 
+void minecraft_client::send_login_success(const protocol::type::string username)
+{
+	auto login_success = protocol::packets::clientbound_login_success{
+	    .uuid = 0,
+	    .username = username,
+	};
+	protocol::packets::build_base(login_success);
+	m_packet_serializer.serialize_and_send(login_success);
+}
+
 void minecraft_client::start_loop_thread()
 {
 	m_loop_thread = new std::thread([this] { this->run_loop(); });
@@ -97,6 +107,19 @@ void minecraft_client::run_loop()
 				should_continue = false;
 			} else
 				throw utils::exception("Invalid packet ID for Status state.");
+		} break;
+
+		case state::LOGIN: {
+			if (next_packet.packet_id == 0x00) {
+				// Login start
+				auto login_start =
+				    m_packet_parser.parse_next<protocol::packets::serverbound_login_start>(
+				        next_packet);
+				std::cout << "Got login for user " << login_start.name.value() << std::endl;
+
+				send_login_success(login_start.name);
+				m_state = state::PLAY;
+			}
 		} break;
 
 		default:

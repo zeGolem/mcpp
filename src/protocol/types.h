@@ -30,6 +30,7 @@ namespace type
 typedef protocol_type<int> varint;
 typedef protocol_type<long> varlong;
 typedef protocol_type<std::string> string;
+typedef protocol_type<__int128> uuid; // TODO: 32-bits target support
 } // namespace type
 
 } // namespace protocol

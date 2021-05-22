@@ -40,6 +40,15 @@ struct clientboud_pong : packet {
 	long payload;
 };
 
+struct serverbound_login_start : packet {
+	type::string name;
+};
+
+struct clientbound_login_success : packet {
+	type::uuid uuid;
+	type::string username;
+};
+
 } // namespace packets
 } // namespace protocol
 } // namespace mcpp

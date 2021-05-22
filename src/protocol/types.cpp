@@ -24,3 +24,8 @@ template <> const unsigned int type::string::size() const
 
 	return string_size + varint_size;
 }
+
+template <> const unsigned int type::uuid::size() const
+{
+	return 16;
+}

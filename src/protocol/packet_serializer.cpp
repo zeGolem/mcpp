@@ -4,6 +4,7 @@
 
 #include "network/tcp_connection.h"
 #include "packets/packet.h"
+#include "protocol/types.h"
 #include "utils/exception.h"
 #include "utils/types.h"
 
@@ -39,6 +40,14 @@ void packet_serializer::write_long(long val)
 	}
 }
 
+void packet_serializer::write_uuid(type::uuid uuid)
+{
+	for (std::size_t i = 0; i < 16; ++i) { // For each byte in the uuid
+		utils::byte current = uuid >> 8 * i;
+		m_connection->write_byte(current);
+	}
+}
+
 packet_serializer::packet_serializer(network::tcp_connection *connection) : m_connection(connection)
 {
 }
@@ -59,4 +68,11 @@ template <> void packet_serializer::serialize_and_send(packets::clientboud_pong 
 {
 	serialize_and_send_base(packet);
 	write_long(packet.payload);
+}
+
+template <> void packet_serializer::serialize_and_send(packets::clientbound_login_success packet)
+{
+	serialize_and_send_base(packet);
+	write_uuid(packet.uuid);
+	write_string(packet.username, 16);
 }

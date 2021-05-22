@@ -18,6 +18,7 @@ class packet_serializer
 	void write_varint(type::varint);
 	void write_string(type::string, unsigned int max_length);
 	void write_long(long);
+	void write_uuid(type::uuid);
 
   public:
 	packet_serializer(network::tcp_connection *connection);

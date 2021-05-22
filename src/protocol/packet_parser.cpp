@@ -111,3 +111,16 @@ template <> packets::serverboud_ping packet_parser::parse_next(packets::packet b
 
 	return p;
 }
+
+template <> packets::serverbound_login_start packet_parser::parse_next(packets::packet base) {
+	auto p = packets::serverbound_login_start{};
+	p.length = base.length;
+	p.packet_id = base.packet_id;
+
+	if (p.packet_id != 0x00)
+		throw utils::exception("Trying to parse serverbound login start, but packet ID isn't 0");
+
+	p.name = read_string(16);
+
+	return p;
+}
