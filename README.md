@@ -9,7 +9,18 @@ A Minecraft server written in C++ from scratch.
 
 # How to build/run
 
-*(Note: this was only tested on Linux, YMMV)*
+## Compatibility
+
+This was tested on the following configurations:
+
+* Linux using GCC/g++ 11.1.0 (My main rig, should always work on this config, also tested with clang here, seems to work.)
+* Windows using GCC/g++ 10.2.0 from [MSYS2](https://www.msys2.org/).
+  It builds & runs from MSYS2, but requiers MSYS2-specific DLLs to do so. I don't have much experience with Windows C++ 
+  dev. but if anyone wants to improve compatibility, please do so.
+
+*If it worked for you on another configuration, please open a PR updating this list, or fixing any bugs you find*.
+
+## Build & Run on your system
 
 1. Create the build directory:
 
