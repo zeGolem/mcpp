@@ -1,5 +1,7 @@
 #pragma once
 
+typedef unsigned short ushort;
+
 namespace mcpp
 {
 namespace utils
