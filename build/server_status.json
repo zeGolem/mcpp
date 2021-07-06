@@ -2,7 +2,7 @@
 {
     "version": {
         "name": "mcpp",
-        "protocol": 754
+        "protocol": 756
     },
     "players": {
         "max": 100,
