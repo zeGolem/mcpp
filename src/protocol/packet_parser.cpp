@@ -112,7 +112,8 @@ template <> packets::serverboud_ping packet_parser::parse_next(packets::packet b
 	return p;
 }
 
-template <> packets::serverbound_login_start packet_parser::parse_next(packets::packet base) {
+template <> packets::serverbound_login_start packet_parser::parse_next(packets::packet base)
+{
 	auto p = packets::serverbound_login_start{};
 	p.length = base.length;
 	p.packet_id = base.packet_id;

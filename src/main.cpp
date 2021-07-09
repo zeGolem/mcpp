@@ -10,7 +10,7 @@ int main(int argc, char const *argv[])
 {
 	std::cout << "Hello, world" << std::endl;
 
-	std::vector<minecraft_client*> clients;
+	std::vector<minecraft_client *> clients;
 
 	try {
 		network::tcp_server serv;
