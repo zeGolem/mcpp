@@ -49,6 +49,25 @@ struct clientbound_login_success : packet {
 	type::string username;
 };
 
+struct clientboud_join_game : packet {
+	int entity_id;
+	bool is_hardcore;
+	utils::byte gamemode;
+	char previous_gamemode; // TODO: Use a better type
+	type::varint world_count;
+	std::vector<type::identifier> world_names;
+	type::nbt_data dimension_codec;
+	type::nbt_data dimension;
+	type::identifier world_name;
+	long hashed_seed;
+	type::varint max_player;
+	type::varint view_distance;
+	bool reduced_debug_info;
+	bool enable_respawn_screen;
+	bool is_debug;
+	bool is_flat;
+};
+
 } // namespace packets
 } // namespace protocol
 } // namespace mcpp

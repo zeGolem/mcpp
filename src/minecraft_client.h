@@ -27,6 +27,7 @@ class minecraft_client
 	void send_status();
 	void send_pong(const long payload);
 	void send_login_success(const protocol::type::string username);
+	void send_join_game();
 
   public:
 	minecraft_client(network::tcp_connection *);

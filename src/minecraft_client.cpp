@@ -4,10 +4,13 @@
 #include <iostream>
 #include <ostream>
 #include <sstream>
+#include <string>
 #include <thread>
 
 #include "protocol/packets/packet.h"
+#include "protocol/types.h"
 #include "utils/exception.h"
+#include "utils/types.h"
 
 using namespace mcpp;
 
@@ -54,6 +57,30 @@ void minecraft_client::send_login_success(const protocol::type::string username)
 	};
 	protocol::packets::build_base(login_success);
 	m_packet_serializer.serialize_and_send(login_success);
+}
+
+void minecraft_client::send_join_game()
+{
+	auto join_game = protocol::packets::clientboud_join_game{
+	    .entity_id = 0,
+	    .is_hardcore = false,
+	    .gamemode = 1,
+	    .previous_gamemode = 1,
+	    .world_count = 1,
+	    .world_names = {std::string("world")},
+	    .dimension_codec = std::vector<utils::byte>({0x00}),
+	    .dimension = std::vector<utils::byte>({0x00}),
+	    .world_name = std::string("world"),
+	    .hashed_seed = 0x1f45813f1432a2d7,
+	    .max_player = 1,
+	    .view_distance = 2,
+	    .reduced_debug_info = false,
+	    .enable_respawn_screen = true,
+	    .is_debug = true,
+	    .is_flat = false,
+	};
+	protocol::packets::build_base(join_game);
+	m_packet_serializer.serialize_and_send(join_game);
 }
 
 void minecraft_client::start_loop_thread()
@@ -119,6 +146,7 @@ void minecraft_client::run_loop()
 
 				send_login_success(login_start.name);
 				m_state = state::PLAY;
+				send_join_game();
 			}
 		} break;
 

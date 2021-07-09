@@ -29,3 +29,8 @@ template <> const unsigned int type::uuid::size() const
 {
 	return 16;
 }
+
+template <> const unsigned int type::nbt_data::size() const
+{
+	return value().size();
+}
