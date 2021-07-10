@@ -19,24 +19,24 @@ struct packet {
 	std::vector<utils::byte> raw_data;
 };
 
-struct serverboud_handshake : packet {
+struct serverbound_handshake : packet {
 	type::varint protocol_version;
 	type::string server_address;
 	ushort server_port;
 	type::varint next_state;
 };
 
-struct serverboud_status_request : packet {
+struct serverbound_status_request : packet {
 };
 
-struct clientboud_status_response : packet {
+struct clientbound_status_response : packet {
 	type::string json_response;
 };
 
-struct serverboud_ping : packet {
+struct serverbound_ping : packet {
 	long payload;
 };
-struct clientboud_pong : packet {
+struct clientbound_pong : packet {
 	long payload;
 };
 
@@ -49,7 +49,7 @@ struct clientbound_login_success : packet {
 	type::string username;
 };
 
-struct clientboud_join_game : packet {
+struct clientbound_join_game : packet {
 	int entity_id;
 	bool is_hardcore;
 	utils::byte gamemode;

@@ -71,13 +71,13 @@ void packet_serializer::serialize_and_send_base(packets::packet base)
 	write_varint(base.packet_id);
 }
 
-template <> void packet_serializer::serialize_and_send(packets::clientboud_status_response packet)
+template <> void packet_serializer::serialize_and_send(packets::clientbound_status_response packet)
 {
 	serialize_and_send_base(packet);
 	write_string(packet.json_response, 32767);
 }
 
-template <> void packet_serializer::serialize_and_send(packets::clientboud_pong packet)
+template <> void packet_serializer::serialize_and_send(packets::clientbound_pong packet)
 {
 	serialize_and_send_base(packet);
 	write_long(packet.payload);
@@ -90,7 +90,7 @@ template <> void packet_serializer::serialize_and_send(packets::clientbound_logi
 	write_string(packet.username, 16);
 }
 
-template <> void packet_serializer::serialize_and_send(packets::clientboud_join_game packet)
+template <> void packet_serializer::serialize_and_send(packets::clientbound_join_game packet)
 {
 	serialize_and_send_base(packet);
 	write_int(packet.entity_id);

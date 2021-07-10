@@ -69,9 +69,9 @@ packets::packet packet_parser::parse_base(bool store_raw_data)
 	return p;
 }
 
-template <> packets::serverboud_handshake packet_parser::parse_next(packets::packet base)
+template <> packets::serverbound_handshake packet_parser::parse_next(packets::packet base)
 {
-	auto p = packets::serverboud_handshake{};
+	auto p = packets::serverbound_handshake{};
 	p.length = base.length;
 	p.packet_id = base.packet_id;
 
@@ -86,9 +86,9 @@ template <> packets::serverboud_handshake packet_parser::parse_next(packets::pac
 	return p;
 }
 
-template <> packets::serverboud_status_request packet_parser::parse_next(packets::packet base)
+template <> packets::serverbound_status_request packet_parser::parse_next(packets::packet base)
 {
-	auto p = packets::serverboud_status_request{};
+	auto p = packets::serverbound_status_request{};
 	p.length = base.length;
 	p.packet_id = base.packet_id;
 
@@ -98,9 +98,9 @@ template <> packets::serverboud_status_request packet_parser::parse_next(packets
 	return p;
 }
 
-template <> packets::serverboud_ping packet_parser::parse_next(packets::packet base)
+template <> packets::serverbound_ping packet_parser::parse_next(packets::packet base)
 {
-	auto p = packets::serverboud_ping{};
+	auto p = packets::serverbound_ping{};
 	p.length = base.length;
 	p.packet_id = base.packet_id;
 

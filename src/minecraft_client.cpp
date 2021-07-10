@@ -33,7 +33,7 @@ void minecraft_client::send_status()
 	buff << status_info.rdbuf();
 	status_info.close();
 
-	auto status_response = protocol::packets::clientboud_status_response{
+	auto status_response = protocol::packets::clientbound_status_response{
 	    .json_response = buff.str(),
 	};
 	protocol::packets::build_base(status_response);
@@ -42,7 +42,7 @@ void minecraft_client::send_status()
 
 void minecraft_client::send_pong(const long payload)
 {
-	auto ping_response = protocol::packets::clientboud_pong{
+	auto ping_response = protocol::packets::clientbound_pong{
 	    .payload = payload,
 	};
 	protocol::packets::build_base(ping_response);
@@ -61,7 +61,7 @@ void minecraft_client::send_login_success(const protocol::type::string username)
 
 void minecraft_client::send_join_game()
 {
-	auto join_game = protocol::packets::clientboud_join_game{
+	auto join_game = protocol::packets::clientbound_join_game{
 	    .entity_id = 0,
 	    .is_hardcore = false,
 	    .gamemode = 1,
@@ -103,7 +103,7 @@ void minecraft_client::run_loop()
 				throw utils::exception("Invalid packet ID for handshake");
 
 			auto handshake =
-			    m_packet_parser.parse_next<protocol::packets::serverboud_handshake>(next_packet);
+			    m_packet_parser.parse_next<protocol::packets::serverbound_handshake>(next_packet);
 
 			std::cout << "Got handshake, port=" << handshake.server_port << std::endl;
 
@@ -118,7 +118,7 @@ void minecraft_client::run_loop()
 		case state::STATUS: {
 			if (next_packet.packet_id == 0x00) {
 				// We are here : https://wiki.vg/Server_List_Ping#Request
-				m_packet_parser.parse_next<protocol::packets::serverboud_status_request>(
+				m_packet_parser.parse_next<protocol::packets::serverbound_status_request>(
 				    next_packet);
 
 				std::cout << "Got status request, replying" << std::endl;
@@ -126,7 +126,7 @@ void minecraft_client::run_loop()
 			} else if (next_packet.packet_id == 0x01) {
 				// We are here: https://wiki.vg/Server_List_Ping#Ping
 				auto ping_request =
-				    m_packet_parser.parse_next<protocol::packets::serverboud_ping>(next_packet);
+				    m_packet_parser.parse_next<protocol::packets::serverbound_ping>(next_packet);
 
 				std::cout << "Got ping request, replying, payload=" << ping_request.payload
 				          << std::endl;
