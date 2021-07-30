@@ -11,6 +11,7 @@
 #include "protocol/types.h"
 #include "utils/exception.h"
 #include "utils/types.h"
+#include "minecraft_server.h"
 
 using namespace mcpp;
 
@@ -28,13 +29,8 @@ minecraft_client::~minecraft_client()
 
 void minecraft_client::send_status()
 {
-	std::ifstream status_info("server_status.json");
-	std::stringstream buff;
-	buff << status_info.rdbuf();
-	status_info.close();
-
 	auto status_response = protocol::packets::clientbound_status_response{
-	    .json_response = buff.str(),
+	    .json_response = minecraft_server::the().info().status,
 	};
 	protocol::packets::build_base(status_response);
 	m_packet_serializer.serialize_and_send(status_response);

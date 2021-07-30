@@ -1,5 +1,6 @@
 SOURCES=src/main.cpp                       \
 		src/minecraft_client.cpp           \
+		src/minecraft_server.cpp           \
 		src/network/tcp_server.cpp         \
 		src/network/tcp_connection.cpp     \
 		src/protocol/packet_parser.cpp     \
