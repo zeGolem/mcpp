@@ -102,6 +102,8 @@ template <> void packet_serializer::serialize_and_send(packets::clientbound_join
 		write_string(world_name, 32767);
 	for (auto &byte : packet.dimension_codec.value())
 		write_byte(byte);
+	for (auto &byte : packet.dimension.value())
+		write_byte(byte);
 	write_string(packet.world_name, 32767);
 	write_long(packet.hashed_seed);
 	write_varint(packet.max_player);
