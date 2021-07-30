@@ -1,14 +1,28 @@
 #include "minecraft_server.h"
+#include "utils/types.h"
+#include <array>
 #include <exception>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <thread>
+#include <vector>
 
 using namespace mcpp;
 
 void minecraft_server::load_infos()
 {
+	auto read_bin = [](const char *filename) -> std::vector<utils::byte> {
+		// There is probably a better way to do that...
+		std::ifstream file(filename, std::ios::binary | std::ios::ate);
+		auto size = file.tellg();
+		std::cout << "size=" << size << std::endl;
+		file.seekg(0, std::ios::beg);
+		auto buff = new utils::byte[size];
+		file.read((char *)buff, size);
+		std::vector<utils::byte> data(buff, buff + size);
+		return data;
+	};
 	// Server status JSON
 	{
 		std::ifstream file("server_status.json");
@@ -17,6 +31,9 @@ void minecraft_server::load_infos()
 		file.close();
 		m_server_info.status = buff.str();
 	}
+	// NBT Dimension stuff, see https://wiki.vg/NBT
+	m_server_info.dimension_codec = read_bin("dimension_codec.nbt");
+	m_server_info.dimension = read_bin("dimension.nbt");
 }
 
 void minecraft_server::start()

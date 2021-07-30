@@ -2,6 +2,7 @@
 
 #include "minecraft_client.h"
 #include "network/tcp_server.h"
+#include "utils/types.h"
 #include <thread>
 #include <vector>
 
@@ -10,6 +11,8 @@ namespace mcpp
 
 struct server_info {
 	std::string status;
+	std::vector<utils::byte> dimension_codec;
+	std::vector<utils::byte> dimension;
 };
 
 class minecraft_server
