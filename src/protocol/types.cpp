@@ -19,7 +19,7 @@ template <> const unsigned int type::varint::size() const
 
 template <> const unsigned int type::string::size() const
 {
-	auto string_size = value().size();
+	auto string_size = value().length();
 	auto varint_size = type::varint(string_size).size();
 
 	return string_size + varint_size;
