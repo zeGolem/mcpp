@@ -16,7 +16,6 @@ void minecraft_server::load_infos()
 		// There is probably a better way to do that...
 		std::ifstream file(filename, std::ios::binary | std::ios::ate);
 		auto size = file.tellg();
-		std::cout << "size=" << size << std::endl;
 		file.seekg(0, std::ios::beg);
 		auto buff = new utils::byte[size];
 		file.read((char *)buff, size);
