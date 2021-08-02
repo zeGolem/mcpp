@@ -68,6 +68,33 @@ struct clientbound_join_game : packet {
 	bool is_flat;
 };
 
+struct serverbound_client_settings : packet {
+	type::string locale;
+	utils::byte view_distance;
+	type::varint chat_mode;
+	bool chat_colors;
+	utils::byte displayed_skin_parts;
+	type::varint main_hand;
+	bool disable_text_filtering;
+};
+
+struct _plugin_message : packet {
+	type::identifier channel;
+	std::vector<utils::byte> data;
+};
+
+typedef _plugin_message serverbound_plugin_message;
+typedef _plugin_message clientbound_plugin_message;
+
+struct clientbound_held_item_change : packet {
+	utils::byte slot;
+};
+
+struct clientbound_declare_recipes : packet {
+	type::varint num_recipes;
+	std::vector<type::recipe> recipes;
+};
+
 } // namespace packets
 } // namespace protocol
 } // namespace mcpp

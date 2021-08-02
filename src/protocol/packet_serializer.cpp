@@ -113,3 +113,21 @@ template <> void packet_serializer::serialize_and_send(packets::clientbound_join
 	write_bool(packet.is_debug);
 	write_bool(packet.is_flat);
 }
+
+template <> void packet_serializer::serialize_and_send(packets::clientbound_held_item_change packet)
+{
+	serialize_and_send_base(packet);
+	write_byte(packet.slot);
+}
+
+template <> void packet_serializer::serialize_and_send(packets::clientbound_declare_recipes packet)
+{
+	serialize_and_send_base(packet);
+	write_varint(packet.num_recipes);
+	for (auto &r : packet.recipes) {
+		write_string(r.type, 32767);
+		write_string(r.recipe_id, 32767);
+		m_connection->write(r.data); // TODO: write a wrapper, it feels weird to call a
+		                             // function on the connefction directly from here...
+	}
+}

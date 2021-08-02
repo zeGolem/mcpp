@@ -125,3 +125,42 @@ template <> packets::serverbound_login_start packet_parser::parse_next(packets::
 
 	return p;
 }
+
+template <> packets::serverbound_client_settings packet_parser::parse_next(packets::packet base)
+{
+	auto p = packets::serverbound_client_settings{};
+	p.length = base.length;
+	p.packet_id = base.packet_id;
+
+	if (p.packet_id != 0x05)
+		throw utils::exception(
+		    "Trying to parse serverbound client settings, but packet ID isn't 5");
+
+	p.locale = read_string(16);
+	p.view_distance = read_byte();
+	p.chat_mode = read_varint();
+	p.chat_colors = read_bool();
+	p.displayed_skin_parts = read_byte();
+	p.main_hand = read_varint();
+	p.disable_text_filtering = read_bool();
+
+	return p;
+}
+
+template <> packets::serverbound_plugin_message packet_parser::parse_next(packets::packet base)
+{
+	auto p = packets::serverbound_plugin_message{};
+	p.length = base.length;
+	p.packet_id = base.packet_id;
+
+	if (p.packet_id != 0x0a)
+		throw utils::exception("Trying to parse serverbound login start, but packet ID isn't 0x0a");
+
+	p.channel = read_string(32767);
+	std::vector<utils::byte> data_buff;
+	auto data_len = p.length - p.packet_id.size() - p.channel.size();
+	p.data = m_connection->read(data_len); // Should maybe write a wrapper for that,
+	                                       // I don't like calling function on the TCP
+	                                       // connection directly like that...
+	return p;
+}

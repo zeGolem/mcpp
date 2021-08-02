@@ -2,6 +2,7 @@
 #include "network/tcp_connection.h"
 #include "protocol/packets/packet.h"
 #include "protocol/types.h"
+#include "utils/types.h"
 
 namespace mcpp
 {
@@ -16,6 +17,8 @@ class packet_parser
 	const type::string read_string(unsigned int max_length);
 	const unsigned short read_ushort();
 	const long int read_long();
+	const utils::byte read_byte() { return m_connection->read_byte(); }
+	const bool read_bool() { return m_connection->read_byte(); }
 
   public:
 	packet_parser(network::tcp_connection *connection);

@@ -36,6 +36,11 @@ class minecraft_server
 	const std::vector<minecraft_client *> clients() const { return m_clients; }
 	const server_info info() const { return m_server_info; }
 
+	const std::vector<protocol::type::recipe> recipes() const
+	{
+		return {};
+	} // TODO: Implement recipes loading
+
 	static minecraft_server &the()
 	{
 		static minecraft_server instance;

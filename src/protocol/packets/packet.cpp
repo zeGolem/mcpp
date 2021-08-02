@@ -48,3 +48,16 @@ template <> void packets::build_base(clientbound_join_game &packet)
 	len += sizeof(packet.is_flat);
 	packet.length = len;
 }
+
+template <> void packets::build_base(clientbound_held_item_change &packet)
+{
+	packet.packet_id = 0x48;
+	packet.length = packet.packet_id.size() + sizeof(packet.slot);
+}
+
+template <> void packets::build_base(clientbound_declare_recipes &packet)
+{
+	packet.packet_id = 0x65;
+	packet.length =
+	    packet.packet_id.size() + packet.num_recipes.size() + 0; // TODO: Compute recipe size...
+}
