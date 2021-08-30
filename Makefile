@@ -15,8 +15,21 @@ FLAGS=-std=c++20 -I./src -Wall
 OUTPUT=build/mcpp
 OUTPUT_DBG=build/mcpp.dbg
 
-$(OUTPUT): $(SOURCES)
+JSON_TAGS=build/tags/*/**/*.json
+
+$(OUTPUT): $(SOURCES) $(NBT_DATA) $(JSON_TAGS)
 	$(CXX) $(FLAGS) $(LIBS) $(SOURCES) -o $(OUTPUT)
 
-$(OUTPUT_DBG): $(SOURCES)
+$(OUTPUT_DBG): $(SOURCES) $(NBT_DATA) $(JSON_TAGS)
 	$(CXX) -g3 $(FLAGS) $(LIBS) $(SOURCES) -o $(OUTPUT_DBG)
+
+$(JSON_TAGS): tools/server/extracted/
+	cp -r tools/server/extracted/data/minecraft/tags build/
+
+tools/server/extracted/: tools/server/server.jar
+	mkdir tools/server/extracted
+	7z x tools/server/server.jar -otools/server/extracted
+	rm tools/server/extracted/*.class
+
+tools/server/server.jar: tools/download_server.py
+	cd tools && python3 download_server.py
