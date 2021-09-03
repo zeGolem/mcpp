@@ -31,5 +31,7 @@ tools/server/extracted/: tools/server/server.jar
 	7z x tools/server/server.jar -otools/server/extracted
 	rm tools/server/extracted/*.class
 
-tools/server/server.jar: tools/download_server.py
-	cd tools && python3 download_server.py
+tools/server/server.jar:
+	mkdir -p tools/server
+	# 1.17.1 server
+	curl "https://launcher.mojang.com/v1/objects/a16d67e5807f57fc4e550299cf20226194497dc2/server.jar" > tools/server/server.jar
