@@ -1,0 +1,12 @@
+tools/server/server.jar
+tools/nbt/out/*
+tools/server/extracted/*
+tools/server/logs
+
+build/mcpp
+build/mcpp.dbg
+build/nbt/
+build/tags/*
+build/objs
+
+__pycache__
