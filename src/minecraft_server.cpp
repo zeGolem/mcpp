@@ -31,8 +31,8 @@ void minecraft_server::load_infos()
 		m_server_info.status = buff.str();
 	}
 	// NBT Dimension stuff, see https://wiki.vg/NBT
-	m_server_info.dimension_codec = read_bin("dimension_codec.nbt");
-	m_server_info.dimension = read_bin("dimension.nbt");
+	m_server_info.dimension_codec = read_bin("nbt/dimension_codec.nbt");
+	m_server_info.dimension = read_bin("nbt/dimension.nbt");
 }
 
 void minecraft_server::start()
