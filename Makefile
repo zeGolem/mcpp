@@ -1,12 +1,7 @@
-SOURCES=src/main.cpp                       \
-		src/minecraft_client.cpp           \
-		src/minecraft_server.cpp           \
-		src/network/tcp_server.cpp         \
-		src/network/tcp_connection.cpp     \
-		src/protocol/packet_parser.cpp     \
-		src/protocol/packet_serializer.cpp \
-		src/protocol/types.cpp             \
-		src/protocol/packets/packet.cpp    \
+SOURCES=$(shell find src/ -type f -name '*.cpp')
+OBJS=$(SOURCES:.cpp=.o)
+OBJS:=$(patsubst src/%,build/objs/%,$(OBJS))
+OBJS_DBG=$(OBJS:.o=.dbg.o)
 
 
 CXX=g++
@@ -17,11 +12,27 @@ OUTPUT_DBG=build/mcpp.dbg
 
 JSON_TAGS=build/tags/*/**/*.json
 
-$(OUTPUT): $(SOURCES) $(NBT_DATA) $(JSON_TAGS)
-	$(CXX) $(FLAGS) $(LIBS) $(SOURCES) -o $(OUTPUT)
+NBT=dimension.nbt dimension_codec.nbt
+NBT_OUT=$(patsubst %,build/nbt/%,$(NBT))
 
-$(OUTPUT_DBG): $(SOURCES) $(NBT_DATA) $(JSON_TAGS)
-	$(CXX) -g3 $(FLAGS) $(LIBS) $(SOURCES) -o $(OUTPUT_DBG)
+build/objs/%.o: src/%.cpp
+	mkdir -p $(@D)
+	$(CXX) $(FLAGS) -c $< -o $@
+
+build/nbt/%.nbt: tools/nbt/generators/%.py
+	python3 $<
+	mkdir -p build/nbt
+	mv tools/nbt/out/*.nbt build/nbt
+
+build/objs/%.dbg.o: src/%.cpp
+	mkdir -p $(@D)
+	$(CXX) $(FLAGS) -c $< -o $@
+
+$(OUTPUT): $(OBJS) $(JSON_TAGS) $(NBT_OUT)
+	$(CXX) $(LIBS) $(OBJS) -o $(OUTPUT)
+
+$(OUTPUT_DBG): $(OBJS_DBG) $(JSON_TAGS) $(NBT_OUT)
+	$(CXX) $(LIBS) $(OBJS_DBG) -o $(OUTPUT_DBG)
 
 $(JSON_TAGS): tools/server/extracted/
 	cp -r tools/server/extracted/data/minecraft/tags build/
