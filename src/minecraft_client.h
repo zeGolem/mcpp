@@ -68,7 +68,7 @@ class minecraft_client
 	void start_loop_thread();
 	void run_loop();
 
-	const state state() const { return m_state; }
+	const state& state() const { return m_state; }
 };
 
 } // namespace mcpp

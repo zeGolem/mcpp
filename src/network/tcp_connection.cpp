@@ -30,17 +30,16 @@ std::fstream tcp_connection::stream() const
 	return {};
 }
 
-std::vector<unsigned char> tcp_connection::read(unsigned int len)
+std::vector<utils::byte> tcp_connection::read(unsigned int len)
 {
-	unsigned char buff[len];
-	auto read_len = ::recv(m_socket_fd, buff, len, false);
+	std::vector<utils::byte> buffer;
+	buffer.resize(len);
+	auto read_len = ::recv(m_socket_fd, buffer.data(), len, false);
 	if (read_len < 0) {
 		perror("recv");
 		throw utils::exception("Read error!");
 	}
-	std::vector<unsigned char> data(read_len);
-	data.assign(buff, buff + read_len);
-	return data;
+	return buffer;
 }
 
 void tcp_connection::write(std::vector<unsigned char> data)

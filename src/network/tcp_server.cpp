@@ -35,6 +35,7 @@ void tcp_server::start()
 	    .sin_family = AF_INET,
 	    .sin_port = htons(m_port),
 	    .sin_addr = {.s_addr = htonl(INADDR_ANY)}, // Listen on all addresses
+		.sin_zero = {}
 	};
 
 	if (bind(m_socket_fd, (sockaddr *)&server_addr, sizeof(server_addr)) < 0) {

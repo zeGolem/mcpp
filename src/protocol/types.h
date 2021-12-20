@@ -22,7 +22,7 @@ template <typename T> class protocol_type
 	operator const T() const { return m_value; }
 
 	// Size of the raw data to send through the socket in bytes
-	const unsigned int size() const;
+	unsigned int size() const;
 };
 
 namespace type

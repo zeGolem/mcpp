@@ -22,7 +22,7 @@ class tcp_server
 	void start();
 	tcp_connection *accept();
 
-	const bool started() const { return m_started; }
+	bool started() const { return m_started; }
 };
 
 } // namespace network

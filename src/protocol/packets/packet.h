@@ -14,9 +14,8 @@ namespace packets
 template <typename T> void build_base(T &packet);
 
 struct packet {
-	type::varint length;
-	type::varint packet_id;
-	std::vector<utils::byte> raw_data;
+	type::varint length = 0;
+	type::varint packet_id = 0;
 };
 
 struct serverbound_handshake : packet {

@@ -38,7 +38,7 @@ const type::string packet_parser::read_string(unsigned int max_len)
 	return std::string(raw_data.begin(), raw_data.end());
 }
 
-const unsigned short packet_parser::read_ushort()
+unsigned short packet_parser::read_ushort()
 {
 	unsigned short target = 0;
 	auto raw = m_connection->read(2);
@@ -47,7 +47,7 @@ const unsigned short packet_parser::read_ushort()
 	return target;
 }
 
-const long int packet_parser::read_long()
+long int packet_parser::read_long()
 {
 	long target = 0;
 	auto raw = m_connection->read(8);

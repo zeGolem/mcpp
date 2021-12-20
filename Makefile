@@ -6,7 +6,7 @@ OBJS_DBG=$(OBJS:.o=.dbg.o)
 
 CXX=g++
 LIBS=-lpthread
-FLAGS=-std=c++20 -I./src -Wall
+FLAGS=-std=c++20 -I./src -Wall -Wextra -pedantic
 OUTPUT=build/mcpp
 OUTPUT_DBG=build/mcpp.dbg
 

@@ -8,6 +8,7 @@ using namespace mcpp;
 
 int main(int argc, char const *argv[])
 {
+	(void)argc, (void)argv;
 	std::cout << "Hello, world" << std::endl;
 	minecraft_server::the().start();
 	while (minecraft_server::the().is_running())

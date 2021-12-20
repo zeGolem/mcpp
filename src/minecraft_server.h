@@ -32,7 +32,7 @@ class minecraft_server
 	void start();
 	void accept();
 
-	const bool is_running() const { return m_running; }
+	bool is_running() const { return m_running; }
 	const std::vector<minecraft_client *> clients() const { return m_clients; }
 	const server_info info() const { return m_server_info; }
 

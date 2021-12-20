@@ -15,10 +15,10 @@ class packet_parser
 	network::tcp_connection *m_connection;
 	const type::varint read_varint();
 	const type::string read_string(unsigned int max_length);
-	const unsigned short read_ushort();
-	const long int read_long();
-	const utils::byte read_byte() { return m_connection->read_byte(); }
-	const bool read_bool() { return m_connection->read_byte(); }
+	unsigned short read_ushort();
+	long int read_long();
+	utils::byte read_byte() { return m_connection->read_byte(); }
+	bool read_bool() { return m_connection->read_byte(); }
 
   public:
 	packet_parser(network::tcp_connection *connection);
@@ -26,7 +26,7 @@ class packet_parser
 
 	packets::packet parse_base(bool store_raw_data = false);
 	template <typename T> T parse_next(packets::packet base);
-	template <typename T> inline T parse() { return parse_next<T>(parse_base()); };
+	template <typename T> inline T parse() { return parse_next<T>(parse_base()); }
 };
 
 } // namespace protocol

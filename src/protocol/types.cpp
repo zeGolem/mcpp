@@ -5,7 +5,7 @@
 using namespace mcpp;
 using namespace protocol;
 
-template <> const unsigned int type::varint::size() const
+template <> unsigned int type::varint::size() const
 {
 	unsigned int size = 0;
 	int value_tmp = value();
@@ -17,7 +17,7 @@ template <> const unsigned int type::varint::size() const
 	return size;
 }
 
-template <> const unsigned int type::string::size() const
+template <> unsigned int type::string::size() const
 {
 	auto string_size = value().length();
 	auto varint_size = type::varint(string_size).size();
@@ -25,12 +25,12 @@ template <> const unsigned int type::string::size() const
 	return string_size + varint_size;
 }
 
-template <> const unsigned int type::uuid::size() const
+template <> unsigned int type::uuid::size() const
 {
 	return 16;
 }
 
-template <> const unsigned int type::nbt_data::size() const
+template <> unsigned int type::nbt_data::size() const
 {
 	return value().size();
 }
