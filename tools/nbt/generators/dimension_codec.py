@@ -43,6 +43,7 @@ data = NBT.RootCompound(
                             "sky_color": NBT.TagInt(7907327),
                             "water_fog_color": NBT.TagInt(329011),
                             "fog_color": NBT.TagInt(12638463),
+                            "water_color": NBT.TagInt(4159204),
                             "mood_sound": NBT.TagCompound({
                                 "tick_delay": NBT.TagInt(6000),
                                 "offset": NBT.TagDouble(2.0),
