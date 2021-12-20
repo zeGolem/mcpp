@@ -70,6 +70,7 @@ void minecraft_client::send_join_game()
 	    .hashed_seed = 0x1f45813f1432a2d7,
 	    .max_player = 1,
 	    .view_distance = 2,
+	    .simulation_distance = 2,
 	    .reduced_debug_info = false,
 	    .enable_respawn_screen = true,
 	    .is_debug = true,

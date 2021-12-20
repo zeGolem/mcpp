@@ -42,6 +42,7 @@ template <> void packets::build_base(clientbound_join_game &packet)
 	len += sizeof(packet.hashed_seed);
 	len += packet.max_player.size();
 	len += packet.view_distance.size();
+	len += packet.simulation_distance.size();
 	len += sizeof(packet.reduced_debug_info);
 	len += sizeof(packet.enable_respawn_screen);
 	len += sizeof(packet.is_debug);

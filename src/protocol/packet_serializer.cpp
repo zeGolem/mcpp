@@ -108,6 +108,7 @@ template <> void packet_serializer::serialize_and_send(packets::clientbound_join
 	write_long(packet.hashed_seed);
 	write_varint(packet.max_player);
 	write_varint(packet.view_distance);
+	write_varint(packet.simulation_distance);
 	write_bool(packet.reduced_debug_info);
 	write_bool(packet.enable_respawn_screen);
 	write_bool(packet.is_debug);

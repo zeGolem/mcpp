@@ -61,6 +61,7 @@ struct clientbound_join_game : packet {
 	long hashed_seed;
 	type::varint max_player;
 	type::varint view_distance;
+	type::varint simulation_distance;
 	bool reduced_debug_info;
 	bool enable_respawn_screen;
 	bool is_debug;
