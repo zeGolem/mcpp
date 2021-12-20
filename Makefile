@@ -26,13 +26,13 @@ build/nbt/%.nbt: tools/nbt/generators/%.py
 
 build/objs/%.dbg.o: src/%.cpp
 	mkdir -p $(@D)
-	$(CXX) $(FLAGS) -c $< -o $@
+	$(CXX) $(FLAGS) -g -c $< -o $@
 
 $(OUTPUT): $(OBJS) $(JSON_TAGS) $(NBT_OUT)
 	$(CXX) $(LIBS) $(OBJS) -o $(OUTPUT)
 
 $(OUTPUT_DBG): $(OBJS_DBG) $(JSON_TAGS) $(NBT_OUT)
-	$(CXX) $(LIBS) $(OBJS_DBG) -o $(OUTPUT_DBG)
+	$(CXX) $(LIBS) -g $(OBJS_DBG) -o $(OUTPUT_DBG)
 
 $(JSON_TAGS): tools/server/extracted/
 	cp -r tools/server/extracted/data/minecraft/tags build/
