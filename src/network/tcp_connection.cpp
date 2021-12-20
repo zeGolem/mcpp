@@ -16,7 +16,6 @@ tcp_connection::tcp_connection(int fd, sockaddr_in client_addr)
 void tcp_connection::close()
 {
 	if (::close(m_socket_fd) != 0) {
-		perror("close");
 		std::cerr << "Failed to close socket. Assuming it's already closed" << std::endl;
 	} else
 		std::cout << "Closed a socket" << std::endl;
@@ -46,20 +45,26 @@ std::vector<unsigned char> tcp_connection::read(unsigned int len)
 
 void tcp_connection::write(std::vector<unsigned char> data)
 {
-	::send(m_socket_fd, data.data(), data.size(), false);
-	perror("send");
+	if (::send(m_socket_fd, data.data(), data.size(), false) < 0) {
+		perror("send");
+		throw utils::exception("Send error!");
+	}
 }
 
 void tcp_connection::write_byte(utils::byte data)
 {
-	::send(m_socket_fd, &data, sizeof(utils::byte), false);
-	perror("send");
+	if (::send(m_socket_fd, &data, sizeof(utils::byte), false) < 0) {
+		perror("send");
+		throw utils::exception("Send error!");
+	}
 }
 
 utils::byte tcp_connection::read_byte()
 {
 	utils::byte buff[1];
-	::recv(m_socket_fd, buff, 1, false);
-	perror("recv");
+	if (::recv(m_socket_fd, buff, 1, false) < 0) {
+		perror("recv");
+		throw utils::exception("Read error!");
+	}
 	return buff[0];
 }
